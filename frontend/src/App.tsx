@@ -1,4 +1,4 @@
-import { InputForm } from './InputForm/index';
+import { InputForm } from './components/InputForm/index';
 
 import styled from 'styled-components';
 
