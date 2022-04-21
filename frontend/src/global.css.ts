@@ -42,4 +42,8 @@ export default createGlobalStyle`
     font-weight: 700;
     color: var(--gray-900);
   }
+
+  button {
+    cursor: pointer;
+  }
 `;
