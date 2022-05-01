@@ -19,8 +19,8 @@ export default function Login() {
   return (
     <Container>
       <h1>Hello world!</h1>
-      <InputForm type='text' label='E-mail'/>
-      <InputForm type='password' label='senha'/>
+      {/* <InputForm type='text' label='E-mail'/> */}
+      {/* <InputForm type='password' label='senha'/> */}
 
       <Button title='Continuar'/>
   </Container>

@@ -1,24 +1,54 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface InputProps {
+  isShowed: boolean;
+  isErrord: boolean;
+}
 
 export const Container = styled.div`
+  & + div {
+    margin-top: 1rem;
+  }
+
+  span {
+    color: var(--red);
+  }
+`;
+
+export const Content = styled.div<InputProps>`
   position: relative;
-  max-width: 300px;
+  /* max-width: 300px; */
 
   & + div {
     margin-top: 1rem;
   }
   
   input {
-    width: 300px;
-    padding: 1rem 3.5rem 1rem 1rem;
+    /* width: 300px; */
+    width: 100%;
+    padding: 1rem;
     
     border-radius: 6px;
-    border: 1px solid var(--gray-300);
+    border: 2px solid var(--gray-300);
 
     font-weight: bold;
     outline: none;
 
     transition: all 0.3s;
+
+    ${props =>
+      !props.isShowed &&
+      css`
+        padding-right: 3.5rem;
+      `
+    }
+
+    ${props =>
+      props.isErrord &&
+      css`
+        border-color: var(--red);
+      `
+    }
   }
 
   label {
@@ -37,7 +67,6 @@ export const Container = styled.div`
     background: var(--white);
 
     transition: all 0.3s;
-
   }
 
   input:hover {
