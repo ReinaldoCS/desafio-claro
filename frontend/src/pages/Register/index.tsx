@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import axios from '../../services/api'
 
 import { InputForm } from '../../components/InputForm';
 import { Button } from '../../components/Button';
@@ -19,8 +20,13 @@ export default function Register() {
     mode: 'onBlur'
   });
 
-  function onSubmit(data: IRegister) {
-    console.log(data);
+  async function onSubmit(data: IRegister) {
+
+    const { email, username, password } = data;
+
+    axios.post('/user/create', { email, username, password })
+    .then((response) => alert("Usuário criado com sucesso!!!"))
+    .catch((error) => alert(error.response.data.message));
   }
 
   return (
