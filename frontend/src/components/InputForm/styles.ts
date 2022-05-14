@@ -24,12 +24,12 @@ export const Content = styled.div<InputProps>`
   }
   
   input {
-    /* width: 300px; */
     width: 100%;
     padding: 1rem;
     
     border-radius: 6px;
     border: 2px solid var(--gray-300);
+    background-color: var(--black);
 
     font-weight: bold;
     outline: none;
@@ -64,7 +64,7 @@ export const Content = styled.div<InputProps>`
     left: calc(1rem - 5px);
 
     transform: translateY(-50%);
-    background: var(--white);
+    background: var(--black);
 
     transition: all 0.3s;
   }

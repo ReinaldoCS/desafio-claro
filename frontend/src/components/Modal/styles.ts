@@ -19,10 +19,10 @@ export const Content = styled(ReactModal)<ModalProps>`
 
   div {
     position: relative;
-    background-color: white;
+    background-color: var(--black);
     padding: 2rem;
     border-radius: 1rem;
-
+    
     max-width: 90%;
 
     span {
