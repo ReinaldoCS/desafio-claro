@@ -1,4 +1,4 @@
-import { Content } from './styles';
+import { Content, Header, Footer, X } from './styles';
 
 interface ModalProps{
   isOpen: boolean;
@@ -14,11 +14,15 @@ export function Modal({ isOpen, onRequestClose, title, description }:ModalProps)
       onRequestClose={ onRequestClose }
     >
       <div>
-        <button type="button" onClick={ onRequestClose }>X</button>
-        <header>
+        <X type="button" onClick={ onRequestClose }>X</X>
+        <Header>
           <h1>{ title }</h1>
-        </header>
+        </Header>
         <span>{ description }</span>
+
+        <Footer>
+          <button type="button" onClick={ onRequestClose }>Voltar</button>
+        </Footer>
       </div>
     </Content>
   )
