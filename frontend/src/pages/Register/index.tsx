@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { UserServices } from '../../services/userService';
 
 import * as Yup from 'yup';
-import axios from '../../services/api'
 
 import { InputForm } from '../../components/InputForm';
 import { Button } from '../../components/Button';
@@ -32,28 +32,35 @@ export default function Register() {
 
   async function onSubmit(data: IRegister) {
     const { email, username, password } = data;
+    const { create } = UserServices;
 
-    axios.post('/user/create', { email, username, password })
-    .then((response) => {
-      setShowModal(true);
-      setTitleModal(`Parabens ${response.data.newUser.username}!!!`);
-      setDescriptionModal('Seu cadastro foi realizado com sucesso');
-    })
-    .catch((error) => {
-      if(error.response.data.message === 'EMAIL_IN_USE') {
+    try {
+      const response = await create({email, username, password});
+
+      if (response.message === 'EMAIL_IN_USE') {
         setShowModal(true);
-        setTitleModal(`E-mail em uso.`);
+        setTitleModal('E-mail em uso.');
         setDescriptionModal('Já existe um cadastro com este e-mail. Escolha outro para continuar.');
-      } else if (error.response.data.message === 'USER_IN_USE') {
-        setShowModal(true);
-        setTitleModal(`Usuário em uso.`);
-        setDescriptionModal('Já existe um cadastro com este usuário. Escolha outro para continuar.');
-      } else {
-        setShowModal(true);
-        setTitleModal(`Ops!!!`);
-        setDescriptionModal('Aconteceu um erro não espero, foi culpa do estagiário!');
+        return;
       }
-    });
+  
+      if (response.message === 'USER_IN_USE') {
+        setShowModal(true);
+        setTitleModal('Usuário em uso.');
+        setDescriptionModal('Já existe um cadastro com este usuário. Escolha outro para continuar.');
+        return;
+      }
+
+      setShowModal(true);
+      setTitleModal(`Parabens ${response.newUser.username}!!!`);
+      setDescriptionModal('Seu cadastro foi realizado com sucesso');
+      return;
+
+    } catch (error) {
+      setShowModal(true);
+      setTitleModal(`Ops!!!`);
+      setDescriptionModal('Aconteceu um erro não espero, foi culpa do estagiário!');      
+    }
   }
 
   return (
