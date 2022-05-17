@@ -10,7 +10,9 @@ import { Button } from '../../components/Button';
 
 import { Modal } from '../../components/Modal';
 
-import { Container } from './styles';
+import { FiLogOut } from 'react-icons/fi';
+
+import { Container, BackButton } from './styles';
 
 const schema = Yup.object({
   email: Yup.string().trim().email("E-mail inválido").required("E-mail inválido"),
@@ -23,14 +25,12 @@ export default function Register() {
     resolver: yupResolver(schema),
     mode: 'onBlur'
   });
-
-
+  
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState('');
   const [descriptionModal, setDescriptionModal] = useState('');
 
   async function onSubmit(data: IRegister) {
-
     const { email, username, password } = data;
 
     axios.post('/user/create', { email, username, password })
@@ -59,6 +59,10 @@ export default function Register() {
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
+
+        <BackButton to='/'> 
+          <FiLogOut size={'1.5rem'} /> 
+        </BackButton>
 
         <header>
           <h1>Cadastro</h1>
